@@ -50,6 +50,7 @@ const Example = React.createClass({
       preSelected: false,
       selected: [],
       text: '',
+      hideMenuIfEmpty: false,
     };
   },
 
@@ -65,6 +66,7 @@ const Example = React.createClass({
       preSelected,
       selected,
       text,
+      hideMenuIfEmpty,
     } = this.state;
 
     let props = {allowNew, disabled, multiple, selected};
@@ -86,6 +88,7 @@ const Example = React.createClass({
           <Typeahead
             {...props}
             align={align}
+            hideMenuIfEmpty={hideMenuIfEmpty}
             labelKey="name"
             onChange={(selected) => this.setState({selected})}
             onInputChange={(text) => this.setState({text})}
@@ -136,6 +139,12 @@ const Example = React.createClass({
                 name="alignMenu"
                 onChange={this._handleChange}>
                 Align menu: {this._renderAlignmentSelector()}
+              </Checkbox>
+              <Checkbox
+                  checked={hideMenuIfEmpty}
+                  name="hideMenuIfEmpty"
+                  onChange={this._handleChange}>
+                  Hide dropdown menu if input is empty
               </Checkbox>
             </div>
           </ExampleSection>
@@ -203,6 +212,9 @@ const Example = React.createClass({
         let newSelection = this.state.selected.slice();
         !checked && newSelection.splice(1, newSelection.length);
         newState.selected = newSelection || [];
+        break;
+      case 'hideMenuIfEmpty':
+        newState.hideMenuIfEmpty = checked;
         break;
     }
 
