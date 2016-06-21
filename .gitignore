@@ -1,5 +1,5 @@
-dist
+#dist
 example/index.js
-lib
+#lib
 node_modules
 npm-debug.log
